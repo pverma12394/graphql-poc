@@ -6,6 +6,7 @@
   "scripts": {
     "start": "nodemon src/index.js",
     "db:up": "docker-compose up",
+    "install": "npm ci",
     "db:seed": "seed -u 'mongodb://admin:pass@127.0.0.1:27017/insights-consumption-db' --db-name insights-consumption-db --drop-database ./data"
   },
   "repository": {
@@ -25,6 +26,7 @@
   "dependencies": {
     "apollo-server": "^3.12.1",
     "mongo-seeding": "^3.7.2",
+    "mongo-seeding-cli": "^3.7.2",
     "mongoose": "^7.6.2",
     "pino": "^8.16.0",
     "pino-pretty": "^10.2.3"
