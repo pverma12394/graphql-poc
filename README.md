@@ -26,7 +26,10 @@ You can view the script in `package.json` where we have two defined scripts that
 - To run the database, run `docker-compose up`  
 - You can access the database from `http://localhost:8081/`
   
-  
+### Installing other dependencies
+
+- Install apollo-server : `npm install apollo-server`  
+- Install nodemon tool : `npm install --save-dev nodemon`
   
 ### Running the application
 
