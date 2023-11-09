@@ -1,0 +1,35 @@
+{
+  "name": "rnawhisper",
+  "version": "1.0.0",
+  "description": "graphql application for consumption of RNASeq data on Polly",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "db:up": "docker-compose up",
+    "db:seed": "seed -u 'mongodb://admin:pass@127.0.0.1:27017/insights-consumption-db' --db-name insights-consumption-db --drop-database ./data"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pverma12394/graphql-poc.git"
+  },
+  "keywords": [
+    "graphql",
+    "rnaseq"
+  ],
+  "author": "Pawan Verma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pverma12394/graphql-poc/issues"
+  },
+  "homepage": "https://github.com/pverma12394/graphql-poc#readme",
+  "dependencies": {
+    "apollo-server": "^3.12.1",
+    "mongo-seeding": "^3.7.2",
+    "mongoose": "^7.6.2",
+    "pino": "^8.16.0",
+    "pino-pretty": "^10.2.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
