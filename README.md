@@ -11,11 +11,11 @@ We have provided a docker compose file that starts two container:
   
 You can view the script in `package.json` where we have two defined scripts that we can use to start and seed our database.  
   
-- To run the database, run `docker-compose up`  
+- To install/run the database, run `npm run db:up`  
 - You can access the database from `http://localhost:8081/`  
   
 ### Running the application
 
-- To install local dependencies, run the command : `npm install`
+- To install local dependencies, run the command : `npm install` (This has to be done during the initial setup)  
 - To start the graphQL server, run the command : `npm start`
 - The application can be accessed on `https://localhost:4000/`
