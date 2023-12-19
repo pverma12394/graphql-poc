@@ -30,8 +30,12 @@ type Query {
   familyHistoryAndHereditaryFactors: FamilyHistoryAndHereditaryFactorsResult
   chemotherapyAdverseEventsSummary: ChemotherapyAdverseEventsSummary
 
+  expressionByGeneId(geneSymbol: String!): ExpressionByGeneId
+  expressionByRegimen(regimen: String!): ExpressionByRegimen
+
   getPublicationById(dataset_id: String!): GetPublicationById
   getDatasetById(dataset_id: String!): GetDatasetById
+  getSampleById(sample_id: String!): GetSampleById
 }
 
 type DonorByCancerSite {
@@ -427,5 +431,28 @@ type Treatment {
 
 type GetDatasetById {
   dataset_id: String!
+}
+
+type GetSampleById {
+  sample_id: String!
+  dataset_id: String
+}
+
+type ExpressionData {
+  sample_id: String
+  expression_value: Float
+}
+
+type AssayType {
+  rawCountData: [ExpressionData]
+  normalisedData: [ExpressionData]
+}
+
+type ExpressionByGeneId {
+  assayType: AssayType
+}
+
+type ExpressionByRegimen {
+  assayType(regimen: String!): AssayType!
 }
 

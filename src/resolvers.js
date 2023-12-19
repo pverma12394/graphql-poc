@@ -7,6 +7,16 @@ const mockData = {
       dataset_id: "dataset2",
     },
   ],
+  Sample: [
+    {
+      sample_id: "S001",
+      dataset_id: "dataset1"
+    },
+    {
+      sample_id: "S002",
+      dataset_id: "dataset2"
+    }
+  ],
   Donor: [
     {
       donor_id: "donor1",
@@ -352,6 +362,175 @@ const mockData = {
       reference: "DOI: 10.5678/gm.2023.002",
     },
   ],
+
+  geneExpression: {
+    assayType : {
+      rawCountData : [
+      {
+        geneSymbol: "Gene1",
+        expressionData:
+        [
+          {sample_id: "S001", expression_value: 21},
+          {sample_id: "S002", expression_value: 102},
+        ]
+      },
+      {
+        geneSymbol: "Gene2",
+        expressionData:
+        [
+          {sample_id: "S001", expression_value: 450},
+          {sample_id: "S002", expression_value: 199981},
+        ]
+      },
+      {
+        geneSymbol: "Gene3",
+        expressionData:
+        [
+          {sample_id: "S001", expression_value: 35},
+          {sample_id: "S002", expression_value: 11},
+        ]
+      },
+      {
+        geneSymbol: "Gene4",
+        expressionData:
+        [
+          {sample_id: "S001", expression_value: 2},
+          {sample_id: "S002", expression_value: 777},
+        ]
+      },
+      {
+        geneSymbol: "Gene5",
+        expressionData:
+        [
+          {sample_id: "S001", expression_value: 4112},
+          {sample_id: "S002", expression_value: 75},
+        ]
+      },
+      {
+        geneSymbol: "Gene6",
+        expressionData:
+        [
+          {sample_id: "S001", expression_value: 22},
+          {sample_id: "S002", expression_value: 90811},
+        ]
+      },
+      {
+        geneSymbol: "Gene7",
+        expressionData:
+        [
+          {sample_id: "S001", expression_value: 235332},
+          {sample_id: "S002", expression_value: 87},
+        ]
+      },
+      {
+        geneSymbol: "Gene8",
+        expressionData:
+        [
+          {sample_id: "S001", expression_value: 2},
+          {sample_id: "S002", expression_value: 0},
+        ]
+      },
+      {
+        geneSymbol: "Gene9",
+        expressionData:
+        [
+          {sample_id: "S001", expression_value: 1},
+          {sample_id: "S002", expression_value: 4},
+        ]
+      },
+      {
+        geneSymbol: "Gene10",
+        expressionData:
+        [
+          {sample_id: "S001", expression_value: 1},
+          {sample_id: "S002", expression_value: 7},
+        ]
+      },
+    ],
+    normalisedData : [
+      {
+        geneSymbol: "Gene1",
+        expressionData:
+        [
+          {sample_id: "S001", expression_value: 109.72},
+          {sample_id: "S002", expression_value: 0.75},
+        ]
+      },
+      {
+        geneSymbol: "Gene2",
+        expressionData:
+        [
+          {sample_id: "S001", expression_value: 8.77},
+          {sample_id: "S002", expression_value: 55.98},
+        ]
+      },
+      {
+        geneSymbol: "Gene3",
+        expressionData:
+        [
+          {sample_id: "S001", expression_value: 2.71},
+          {sample_id: "S002", expression_value: 1.65},
+        ]
+      },
+      {
+        geneSymbol: "Gene4",
+        expressionData:
+        [
+          {sample_id: "S001", expression_value: 0.02},
+          {sample_id: "S002", expression_value: 75.99},
+        ]
+      },
+      {
+        geneSymbol: "Gene5",
+        expressionData:
+        [
+          {sample_id: "S001", expression_value: 100.11},
+          {sample_id: "S002", expression_value: 5.77},
+        ]
+      },
+      {
+        geneSymbol: "Gene6",
+        expressionData:
+        [
+          {sample_id: "S001", expression_value: 2.66},
+          {sample_id: "S002", expression_value: 305.45},
+        ]
+      },
+      {
+        geneSymbol: "Gene7",
+        expressionData:
+        [
+          {sample_id: "S001", expression_value: 585.89},
+          {sample_id: "S002", expression_value: 7.90},
+        ]
+      },
+      {
+        geneSymbol: "Gene8",
+        expressionData:
+        [
+          {sample_id: "S001", expression_value: 0.01},
+          {sample_id: "S002", expression_value: 0},
+        ]
+      },
+      {
+        geneSymbol: "Gene9",
+        expressionData:
+        [
+          {sample_id: "S001", expression_value: 0.001},
+          {sample_id: "S002", expression_value: 0.03},
+        ]
+      },
+      {
+        geneSymbol: "Gene10",
+        expressionData:
+        [
+          {sample_id: "S001", expression_value: 0.002},
+          {sample_id: "S002", expression_value: 0.05},
+        ]
+      },
+    ]
+  }}
+
 };
 
 
@@ -1041,10 +1220,68 @@ const resolvers = {
         };
       },
 
+      expressionByGeneId: (_, { geneSymbol }) => {
+        // Assuming your data is structured as shown in mockData
+        const geneData = mockData.geneExpression.assayType.rawCountData.find(
+          (gene) => gene.geneSymbol === geneSymbol
+        );
+  
+        if (!geneData) {
+          throw new Error(`Gene with symbol ${geneSymbol} not found`);
+        }
+  
+        return {
+          assayType: {
+            rawCountData: geneData.expressionData,
+            normalisedData: getNormalisedDataForGene(geneSymbol),
+          },
+        };
+      },
+
+      expressionByRegimen: (_, { regimen }, { mockData }) => {
+        // Assuming mockData is accessible in the resolver context
+  
+        // Filter donors based on the given regimen
+        const donorsWithRegimen = mockData.Diagnosis.filter((diagnosis) => {
+          const treatmentEvent = diagnosis.disease.diagnostictests.eventtype.treatmenteventtype.chemotherapy;
+          return treatmentEvent && treatmentEvent.chemotherapydetails.selectedRegimen === regimen;
+        });
+  
+        // Extract sample IDs from filtered donors
+        const sampleIds = donorsWithRegimen.map((donor) => {
+          return mockData.Exposure.find((exposure) => exposure.donor_id === donor.donor_id)?.sample_id;
+        });
+  
+        // Fetch gene expression data for the selected sample IDs
+        const geneExpressionData = mockData.geneExpression.assayType.rawCountData.map((geneData) => {
+          const expressionData = geneData.expressionData.filter((data) => sampleIds.includes(data.sample_id));
+          return {
+            geneSymbol: geneData.geneSymbol,
+            expressionData,
+          };
+        });
+  
+        // You can do the same for normalisedData if needed
+  
+        return {
+          assayType: {
+            rawCountData: geneExpressionData,
+          },
+        };
+      },
+
     },
   };
 
 
+function getNormalisedDataForGene(geneSymbol) {
+    const normalisedData = mockData.geneExpression.assayType.normalisedData.find(
+      (gene) => gene.geneSymbol === geneSymbol
+    );
+  
+    return normalisedData ? normalisedData.expressionData : [];
+}
+  
 // Function to categorize age into groups
 function getAgeGroup(age) {
   const lowerBound = Math.floor(age / 10) * 10;
