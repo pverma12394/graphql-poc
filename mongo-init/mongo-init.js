@@ -5,7 +5,7 @@ db.createUser({
     roles: [
       {
         role: 'dbOwner',
-        db: 'insights-consumption-db',
+        db: '4basecare-db',
       },
     ],
   })

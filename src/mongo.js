@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const logger = require('./logger.js')
 
-const mongoDB = 'mongodb://admin:pass@127.0.0.1:27017/insights-consumption-db'
+const mongoDB = 'mongodb://admin:pass@127.0.0.1:27017/4basecare-db'
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true})
 
 const db = mongoose.connection

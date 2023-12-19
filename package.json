@@ -7,7 +7,7 @@
     "start": "nodemon src/index.js",
     "db:up": "docker-compose up",
     "install": "npm ci",
-    "db:seed": "seed -u 'mongodb://admin:pass@127.0.0.1:27017/insights-consumption-db' --db-name insights-consumption-db --drop-database ./data"
+    "db:seed": "seed -u 'mongodb://admin:pass@127.0.0.1:27017/4basecare-db' --db-name 4basecare-db --drop-database ./data"
   },
   "repository": {
     "type": "git",
