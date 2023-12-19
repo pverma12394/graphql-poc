@@ -1,6 +1,6 @@
 # Data Consumption Journey using graphQL (Proof Of Concept)
 
-### Setting up the database
+### Setting up the database (Skip for now)
   
 We have provided a docker compose file that starts two container:  
   
@@ -23,8 +23,8 @@ You can view the script in `package.json` where we have two defined scripts that
 
 ## Generating the data for the application
 
-Currently, an example dataset is stored in a local directory : `/data/gene/gene_expression.js`  
-The seeding command will refer to the data stored here to populate the mongoDB database.  
+Currently, this application is using a mock data that is AI generated. The data is found in `./src/resolvers.js`.  
+Once we store the data in a database, the seeding command will refer to the data stored in `./data` to populate the mongoDB database.  
 
 NOTE : Since graphQL is database agnostic, you can choose any storage solution in the backend. We have used MongoDB for this POC as it fulfils our use case.  
 
