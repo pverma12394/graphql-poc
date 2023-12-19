@@ -24,14 +24,17 @@
   },
   "homepage": "https://github.com/pverma12394/graphql-poc#readme",
   "dependencies": {
-    "apollo-server": "^3.12.1",
-    "mongo-seeding": "^3.7.2",
-    "mongo-seeding-cli": "^3.7.2",
-    "mongoose": "^7.6.2",
-    "pino": "^8.16.0",
-    "pino-pretty": "^10.2.3"
+    "apollo-server": "3.13.0",
+    "mongo-seeding": "3.7.2",
+    "mongo-seeding-cli": "3.7.2",
+    "mongoose": "7.6.7",
+    "pino": "8.17.1",
+    "pino-pretty": "10.3.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "nodemon": "3.0.2"
   }
 }
